@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Checkmate</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Checkmate.styles.css" asp-append-version="true" />
 </head>
@@ -23,7 +24,7 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Tournoi</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Tournament" asp-action="Index">Tournoi</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Auth" asp-action="Login">Se connecter</a>
@@ -37,6 +38,9 @@
         </nav>
     </header>
     <div class="container">
+
+        @* TODO Afficher les messages *@
+
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
@@ -50,6 +54,10 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        $("select").select2();
+    </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

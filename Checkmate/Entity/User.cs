@@ -17,7 +17,7 @@ namespace Checkmate.Entity
         public GenreType Genre { get; set; }
         public int? Elo { get; set; }
         public RoleType Role { get; set; }
-        public List<Registration> Registrations { get; set; }
+        public List<Tournament> Registrations { get; set; }
         public enum GenreType
         {
             Male, Female, Other

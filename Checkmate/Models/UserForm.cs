@@ -31,6 +31,6 @@ namespace Checkmate.Models
         public GenreType Genre { get; set; }
 
         [Range(0, 3000, ErrorMessage = "L'ELO doit être entre 0 et 3000")]
-        public int? Elo { get; set; } = 1200;
+        public int? Elo { get; set; }
     }
 }

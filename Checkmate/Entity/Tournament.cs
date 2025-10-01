@@ -7,7 +7,7 @@ namespace Checkmate.Entity
         [Key]
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Place { get; set; }
+        public string? Place { get; set; }
         public int MaxPlayer { get; set; }
         public int MinPlayer { get; set; }
         public int? MaxElo { get; set; }
@@ -19,11 +19,11 @@ namespace Checkmate.Entity
         public DateTime CreationDate { get; set; }
         public DateTime LastUpdateDate { get; set; }
         public DateTime CloseDate { get; set; }
-        public List<Registration> Registrations { get; set; }
-
+        public List<User> Registrations { get; set; }
+        [Flags]
         public enum CategoryType
         {
-            Junior, Senior, Veteran
+            Junior = 1, Senior = 2, Veteran = 4
         }
 
         public enum StatusType
