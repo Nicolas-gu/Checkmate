@@ -10,7 +10,7 @@ namespace Checkmate.Models
         public string Name { get; set; }
 
         [StringLength(50, ErrorMessage = "Le nom ne peut pas dépasser 50 caractères")]
-        public string Place { get; set; }
+        public string? Place { get; set; }
 
         [Required(ErrorMessage = "Le nombre minimum de joueur est obligatoire")]
         [Range(2, 32, ErrorMessage = "Le nombre minimum de joueur doit être comprit entre 2 et 32")]
@@ -21,10 +21,10 @@ namespace Checkmate.Models
         public int MaxPlayer { get; set; }
 
         [Range(0, 3000, ErrorMessage = "L'elo doit être compris entre 0 et 3000")]
-        public int MinElo { get; set; }
+        public int? MinElo { get; set; }
 
         [Range(0, 3000, ErrorMessage = "L'elo doit être compris entre 0 et 3000")]
-        public int MaxElo {  get; set; }
+        public int? MaxElo {  get; set; }
 
         [Required(ErrorMessage = "Choisissez au moins une catégorie")]
         public List<int> Category { get; set; }
