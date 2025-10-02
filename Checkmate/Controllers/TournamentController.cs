@@ -104,6 +104,10 @@ namespace Checkmate.Controllers
             {
                 return NotFound();
             }
+            if (tournament.Status != Tournament.StatusType.Waiting)
+            {
+                TempData["error"] = "Impossible de supprimer un tournois en cours";
+            }
             _db.Tournaments.Remove(tournament);
             _db.SaveChanges();  // ne pas oublier les changements sur la db apres la suppression
             return RedirectToAction("Index");
