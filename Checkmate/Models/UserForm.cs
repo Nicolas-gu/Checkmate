@@ -7,7 +7,7 @@ namespace Checkmate.Models
     {
         [Required(ErrorMessage = "Le pseudo est obligatoire")]
         [StringLength(50, ErrorMessage = "Le pseudo ne peut pas dépasser 50 caractères")]
-        public string Pseudo { get; set; }
+        public string Username { get; set; }
 
         [Required(ErrorMessage = "L'email est obligatoire")]
         [EmailAddress(ErrorMessage = "L'email n'est pas valide")]

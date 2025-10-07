@@ -8,6 +8,7 @@
 
 <div>
     <h4>TournamentDetailModel</h4>
+    <a class="nav-link text-dark" asp-area="" asp-controller="Tournament" asp-action="Create">S'inscrire à ce tournoi</a>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -17,55 +18,49 @@
             @Html.DisplayFor(model => model.Id)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
+            Nom :
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Name)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Place)
+            Lieu :
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Place)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MaxPlayer)
+            Nombre de joueurs :
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MaxPlayer)
+            @Html.DisplayFor(model => model.NbPlayer) / @Model.MaxPlayer
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MinPlayer)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MinPlayer)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MaxElo)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MaxElo)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MinElo)
+            Elo minimum :
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.MinElo)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Status)
+            Elo maximum :
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.MaxElo)
+        </dd>
+        <dt class = "col-sm-2">
+            Status :
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Status)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CloseDate)
+            Limite d'inscription :
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.CloseDate)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CurrentRound)
+            Ronde courante :
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.CurrentRound)

@@ -1,11 +1,18 @@
 ﻿using Checkmate.Entity;
 using Checkmate.Models;
+using Checkmate.Utils;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Checkmate.Controllers
 {
     public class UserController(Chesscontext _db) : Controller
     {
+        [HttpGet]
+        public IActionResult Index()
+        {
+            return View(_db.Users.Select(u => new UserIndexModel(u)).ToList());
+        }
+
         [HttpGet]
         public IActionResult Create()
         {
@@ -18,20 +25,23 @@ namespace Checkmate.Controllers
             // sauver dans la db
             if(ModelState.IsValid)
             {
-                if(_db.Users.Any(u => u.Pseudo == form.Pseudo || _db.Users.Any(u => u.Email == form.Email)))
+                if(_db.Users.Any(u => u.Username == form.Username))
                 {
-
-                    // TODO ajouter message d'erreur dans la vue
-                    TempData["error"] = "Invaid Email or Pseudo";
+                    TempData["error"] = "Nom d'utilisateur déjà utilisé";
+                    return View();
+                }
+                if(_db.Users.Any(u => u.Email == form.Email))
+                {
+                    TempData["error"] = "Email déjà utilisé";
                     return View();
                 }
                 _db.Users.Add(new User
                 {
-                    Pseudo = form.Pseudo,
+                    Username = form.Username,
                     Email = form.Email,
                     Birthdate = form.Birthdate,
                     Elo = form.Elo ?? 1200,
-                    Password = form.Password,
+                    Password = PasswordUtils.Hash(form.Password),
                     Genre = form.Genre,
                     Role = Entity.User.RoleType.Player,
                 });

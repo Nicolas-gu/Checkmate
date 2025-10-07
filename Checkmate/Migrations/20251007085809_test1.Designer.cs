@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Checkmate.Migrations
 {
     [DbContext(typeof(Chesscontext))]
-    [Migration("20251001084420_removeRegistration")]
-    partial class removeRegistration
+    [Migration("20251007085809_test1")]
+    partial class test1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -103,19 +103,22 @@ namespace Checkmate.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Pseudo")
+                    b.Property<int>("Role")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Username")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("Role")
-                        .HasColumnType("int");
+                    b.Property<bool>("isDeleted")
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
                     b.HasIndex("Email")
                         .IsUnique();
 
-                    b.HasIndex("Pseudo")
+                    b.HasIndex("Username")
                         .IsUnique();
 
                     b.ToTable("Users");
@@ -128,9 +131,10 @@ namespace Checkmate.Migrations
                             Elo = 2859,
                             Email = "nico@chess.com",
                             Genre = 0,
-                            Password = "1234",
-                            Pseudo = "Nico",
-                            Role = 0
+                            Password = "123456",
+                            Role = 0,
+                            Username = "Nico",
+                            isDeleted = false
                         },
                         new
                         {
@@ -139,9 +143,10 @@ namespace Checkmate.Migrations
                             Elo = 2859,
                             Email = "magnus@chess.com",
                             Genre = 0,
-                            Password = "1234",
-                            Pseudo = "MagnusCarlsen",
-                            Role = 1
+                            Password = "123456",
+                            Role = 1,
+                            Username = "MagnusCarlsen",
+                            isDeleted = false
                         },
                         new
                         {
@@ -150,9 +155,10 @@ namespace Checkmate.Migrations
                             Elo = 2787,
                             Email = "hikaru@chess.com",
                             Genre = 0,
-                            Password = "1234",
-                            Pseudo = "HikaruNakamura",
-                            Role = 1
+                            Password = "123456",
+                            Role = 1,
+                            Username = "HikaruNakamura",
+                            isDeleted = false
                         },
                         new
                         {
@@ -161,9 +167,10 @@ namespace Checkmate.Migrations
                             Elo = 2780,
                             Email = "ding@chess.com",
                             Genre = 0,
-                            Password = "1234",
-                            Pseudo = "DingLiren",
-                            Role = 1
+                            Password = "123456",
+                            Role = 1,
+                            Username = "DingLiren",
+                            isDeleted = false
                         },
                         new
                         {
@@ -172,9 +179,10 @@ namespace Checkmate.Migrations
                             Elo = 2770,
                             Email = "nepo@chess.com",
                             Genre = 0,
-                            Password = "1234",
-                            Pseudo = "IanNepomniachtchi",
-                            Role = 1
+                            Password = "123456",
+                            Role = 1,
+                            Username = "IanNepomniachtchi",
+                            isDeleted = false
                         },
                         new
                         {
@@ -183,9 +191,10 @@ namespace Checkmate.Migrations
                             Elo = 2760,
                             Email = "fabiano@chess.com",
                             Genre = 0,
-                            Password = "1234",
-                            Pseudo = "FabianoCaruana",
-                            Role = 1
+                            Password = "123456",
+                            Role = 1,
+                            Username = "FabianoCaruana",
+                            isDeleted = false
                         },
                         new
                         {
@@ -194,9 +203,10 @@ namespace Checkmate.Migrations
                             Elo = 2750,
                             Email = "firouzja@chess.com",
                             Genre = 0,
-                            Password = "1234",
-                            Pseudo = "AlirezaFirouzja",
-                            Role = 1
+                            Password = "123456",
+                            Role = 1,
+                            Username = "AlirezaFirouzja",
+                            isDeleted = false
                         },
                         new
                         {
@@ -205,9 +215,10 @@ namespace Checkmate.Migrations
                             Elo = 2735,
                             Email = "judit@chess.com",
                             Genre = 1,
-                            Password = "1234",
-                            Pseudo = "JuditPolgar",
-                            Role = 1
+                            Password = "123456",
+                            Role = 1,
+                            Username = "JuditPolgar",
+                            isDeleted = false
                         },
                         new
                         {
@@ -216,9 +227,10 @@ namespace Checkmate.Migrations
                             Elo = 2658,
                             Email = "hou@chess.com",
                             Genre = 1,
-                            Password = "1234",
-                            Pseudo = "HouYifan",
-                            Role = 1
+                            Password = "123456",
+                            Role = 1,
+                            Username = "HouYifan",
+                            isDeleted = false
                         },
                         new
                         {
@@ -227,9 +239,10 @@ namespace Checkmate.Migrations
                             Elo = 2785,
                             Email = "fischer@chess.com",
                             Genre = 0,
-                            Password = "1234",
-                            Pseudo = "BobbyFischer",
-                            Role = 1
+                            Password = "123456",
+                            Role = 1,
+                            Username = "BobbyFischer",
+                            isDeleted = false
                         },
                         new
                         {
@@ -238,9 +251,10 @@ namespace Checkmate.Migrations
                             Elo = 2812,
                             Email = "kasparov@chess.com",
                             Genre = 0,
-                            Password = "1234",
-                            Pseudo = "GarryKasparov",
-                            Role = 1
+                            Password = "123456",
+                            Role = 1,
+                            Username = "GarryKasparov",
+                            isDeleted = false
                         },
                         new
                         {
@@ -249,9 +263,10 @@ namespace Checkmate.Migrations
                             Elo = 2100,
                             Email = "cm42@chess.com",
                             Genre = 2,
-                            Password = "1234",
-                            Pseudo = "ChessMaster42",
-                            Role = 1
+                            Password = "123456",
+                            Role = 1,
+                            Username = "ChessMaster42",
+                            isDeleted = false
                         },
                         new
                         {
@@ -260,9 +275,10 @@ namespace Checkmate.Migrations
                             Elo = 1800,
                             Email = "knight@chess.com",
                             Genre = 0,
-                            Password = "1234",
-                            Pseudo = "KnightRider",
-                            Role = 1
+                            Password = "123456",
+                            Role = 1,
+                            Username = "KnightRider",
+                            isDeleted = false
                         },
                         new
                         {
@@ -271,9 +287,10 @@ namespace Checkmate.Migrations
                             Elo = 1950,
                             Email = "queen@chess.com",
                             Genre = 1,
-                            Password = "1234",
-                            Pseudo = "QueenSlayer",
-                            Role = 1
+                            Password = "123456",
+                            Role = 1,
+                            Username = "QueenSlayer",
+                            isDeleted = false
                         },
                         new
                         {
@@ -282,9 +299,10 @@ namespace Checkmate.Migrations
                             Elo = 1200,
                             Email = "pawn@chess.com",
                             Genre = 0,
-                            Password = "1234",
-                            Pseudo = "PawnStar",
-                            Role = 1
+                            Password = "123456",
+                            Role = 1,
+                            Username = "PawnStar",
+                            isDeleted = false
                         },
                         new
                         {
@@ -293,9 +311,10 @@ namespace Checkmate.Migrations
                             Elo = 1600,
                             Email = "rook@chess.com",
                             Genre = 2,
-                            Password = "1234",
-                            Pseudo = "RookAndRoll",
-                            Role = 1
+                            Password = "123456",
+                            Role = 1,
+                            Username = "RookAndRoll",
+                            isDeleted = false
                         },
                         new
                         {
@@ -304,9 +323,10 @@ namespace Checkmate.Migrations
                             Elo = 2000,
                             Email = "strategist@chess.com",
                             Genre = 0,
-                            Password = "1234",
-                            Pseudo = "TheStrategist",
-                            Role = 1
+                            Password = "123456",
+                            Role = 1,
+                            Username = "TheStrategist",
+                            isDeleted = false
                         },
                         new
                         {
@@ -315,9 +335,10 @@ namespace Checkmate.Migrations
                             Elo = 1750,
                             Email = "blitz@chess.com",
                             Genre = 1,
-                            Password = "1234",
-                            Pseudo = "BlitzQueen",
-                            Role = 1
+                            Password = "123456",
+                            Role = 1,
+                            Username = "BlitzQueen",
+                            isDeleted = false
                         },
                         new
                         {
@@ -326,9 +347,10 @@ namespace Checkmate.Migrations
                             Elo = 2200,
                             Email = "checkmate@chess.com",
                             Genre = 0,
-                            Password = "1234",
-                            Pseudo = "CheckmateKing",
-                            Role = 1
+                            Password = "123456",
+                            Role = 1,
+                            Username = "CheckmateKing",
+                            isDeleted = false
                         },
                         new
                         {
@@ -337,9 +359,10 @@ namespace Checkmate.Migrations
                             Elo = 2300,
                             Email = "endgame@chess.com",
                             Genre = 0,
-                            Password = "1234",
-                            Pseudo = "EndgameWizard",
-                            Role = 1
+                            Password = "123456",
+                            Role = 1,
+                            Username = "EndgameWizard",
+                            isDeleted = false
                         },
                         new
                         {
@@ -348,9 +371,10 @@ namespace Checkmate.Migrations
                             Elo = 1900,
                             Email = "opening@chess.com",
                             Genre = 2,
-                            Password = "1234",
-                            Pseudo = "OpeningGenius",
-                            Role = 1
+                            Password = "123456",
+                            Role = 1,
+                            Username = "OpeningGenius",
+                            isDeleted = false
                         });
                 });
 

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Checkmate.Migrations
 {
     [DbContext(typeof(Chesscontext))]
-    [Migration("20250930183113_initial")]
-    partial class initial
+    [Migration("20251007130040_test2")]
+    partial class test2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,38 +24,6 @@ namespace Checkmate.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("Checkmate.Entity.Registration", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime?>("CancelledAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("RegistredAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("TournamentId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("isCancelled")
-                        .HasColumnType("bit");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TournamentId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Registrations");
-                });
 
             modelBuilder.Entity("Checkmate.Entity.Tournament", b =>
                 {
@@ -96,8 +64,10 @@ namespace Checkmate.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("NbPlayer")
+                        .HasColumnType("int");
+
                     b.Property<string>("Place")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Status")
@@ -136,19 +106,22 @@ namespace Checkmate.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Pseudo")
+                    b.Property<int>("Role")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Username")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("Role")
-                        .HasColumnType("int");
+                    b.Property<bool>("isDeleted")
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
                     b.HasIndex("Email")
                         .IsUnique();
 
-                    b.HasIndex("Pseudo")
+                    b.HasIndex("Username")
                         .IsUnique();
 
                     b.ToTable("Users");
@@ -156,14 +129,27 @@ namespace Checkmate.Migrations
                     b.HasData(
                         new
                         {
+                            Id = 21,
+                            Birthdate = new DateTime(1990, 11, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Elo = 2859,
+                            Email = "nico@chess.com",
+                            Genre = 0,
+                            Password = "123456",
+                            Role = 0,
+                            Username = "Nico",
+                            isDeleted = false
+                        },
+                        new
+                        {
                             Id = 1,
                             Birthdate = new DateTime(1990, 11, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Elo = 2859,
                             Email = "magnus@chess.com",
                             Genre = 0,
-                            Password = "1234",
-                            Pseudo = "MagnusCarlsen",
-                            Role = 1
+                            Password = "123456",
+                            Role = 1,
+                            Username = "MagnusCarlsen",
+                            isDeleted = false
                         },
                         new
                         {
@@ -172,9 +158,10 @@ namespace Checkmate.Migrations
                             Elo = 2787,
                             Email = "hikaru@chess.com",
                             Genre = 0,
-                            Password = "1234",
-                            Pseudo = "HikaruNakamura",
-                            Role = 1
+                            Password = "123456",
+                            Role = 1,
+                            Username = "HikaruNakamura",
+                            isDeleted = false
                         },
                         new
                         {
@@ -183,9 +170,10 @@ namespace Checkmate.Migrations
                             Elo = 2780,
                             Email = "ding@chess.com",
                             Genre = 0,
-                            Password = "1234",
-                            Pseudo = "DingLiren",
-                            Role = 1
+                            Password = "123456",
+                            Role = 1,
+                            Username = "DingLiren",
+                            isDeleted = false
                         },
                         new
                         {
@@ -194,9 +182,10 @@ namespace Checkmate.Migrations
                             Elo = 2770,
                             Email = "nepo@chess.com",
                             Genre = 0,
-                            Password = "1234",
-                            Pseudo = "IanNepomniachtchi",
-                            Role = 1
+                            Password = "123456",
+                            Role = 1,
+                            Username = "IanNepomniachtchi",
+                            isDeleted = false
                         },
                         new
                         {
@@ -205,9 +194,10 @@ namespace Checkmate.Migrations
                             Elo = 2760,
                             Email = "fabiano@chess.com",
                             Genre = 0,
-                            Password = "1234",
-                            Pseudo = "FabianoCaruana",
-                            Role = 1
+                            Password = "123456",
+                            Role = 1,
+                            Username = "FabianoCaruana",
+                            isDeleted = false
                         },
                         new
                         {
@@ -216,9 +206,10 @@ namespace Checkmate.Migrations
                             Elo = 2750,
                             Email = "firouzja@chess.com",
                             Genre = 0,
-                            Password = "1234",
-                            Pseudo = "AlirezaFirouzja",
-                            Role = 1
+                            Password = "123456",
+                            Role = 1,
+                            Username = "AlirezaFirouzja",
+                            isDeleted = false
                         },
                         new
                         {
@@ -227,9 +218,10 @@ namespace Checkmate.Migrations
                             Elo = 2735,
                             Email = "judit@chess.com",
                             Genre = 1,
-                            Password = "1234",
-                            Pseudo = "JuditPolgar",
-                            Role = 1
+                            Password = "123456",
+                            Role = 1,
+                            Username = "JuditPolgar",
+                            isDeleted = false
                         },
                         new
                         {
@@ -238,9 +230,10 @@ namespace Checkmate.Migrations
                             Elo = 2658,
                             Email = "hou@chess.com",
                             Genre = 1,
-                            Password = "1234",
-                            Pseudo = "HouYifan",
-                            Role = 1
+                            Password = "123456",
+                            Role = 1,
+                            Username = "HouYifan",
+                            isDeleted = false
                         },
                         new
                         {
@@ -249,9 +242,10 @@ namespace Checkmate.Migrations
                             Elo = 2785,
                             Email = "fischer@chess.com",
                             Genre = 0,
-                            Password = "1234",
-                            Pseudo = "BobbyFischer",
-                            Role = 1
+                            Password = "123456",
+                            Role = 1,
+                            Username = "BobbyFischer",
+                            isDeleted = false
                         },
                         new
                         {
@@ -260,149 +254,161 @@ namespace Checkmate.Migrations
                             Elo = 2812,
                             Email = "kasparov@chess.com",
                             Genre = 0,
-                            Password = "1234",
-                            Pseudo = "GarryKasparov",
-                            Role = 1
+                            Password = "123456",
+                            Role = 1,
+                            Username = "GarryKasparov",
+                            isDeleted = false
                         },
                         new
                         {
                             Id = 11,
                             Birthdate = new DateTime(1995, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Elo = 2100,
-                            Email = "cm42@example.com",
+                            Email = "cm42@chess.com",
                             Genre = 2,
-                            Password = "1234",
-                            Pseudo = "ChessMaster42",
-                            Role = 1
+                            Password = "123456",
+                            Role = 1,
+                            Username = "ChessMaster42",
+                            isDeleted = false
                         },
                         new
                         {
                             Id = 12,
                             Birthdate = new DateTime(1988, 8, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Elo = 1800,
-                            Email = "knight@example.com",
+                            Email = "knight@chess.com",
                             Genre = 0,
-                            Password = "1234",
-                            Pseudo = "KnightRider",
-                            Role = 1
+                            Password = "123456",
+                            Role = 1,
+                            Username = "KnightRider",
+                            isDeleted = false
                         },
                         new
                         {
                             Id = 13,
                             Birthdate = new DateTime(1999, 12, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Elo = 1950,
-                            Email = "queen@example.com",
+                            Email = "queen@chess.com",
                             Genre = 1,
-                            Password = "1234",
-                            Pseudo = "QueenSlayer",
-                            Role = 1
+                            Password = "123456",
+                            Role = 1,
+                            Username = "QueenSlayer",
+                            isDeleted = false
                         },
                         new
                         {
                             Id = 14,
                             Birthdate = new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Elo = 1200,
-                            Email = "pawn@example.com",
+                            Email = "pawn@chess.com",
                             Genre = 0,
-                            Password = "1234",
-                            Pseudo = "PawnStar",
-                            Role = 1
+                            Password = "123456",
+                            Role = 1,
+                            Username = "PawnStar",
+                            isDeleted = false
                         },
                         new
                         {
                             Id = 15,
                             Birthdate = new DateTime(1993, 3, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Elo = 1600,
-                            Email = "rook@example.com",
+                            Email = "rook@chess.com",
                             Genre = 2,
-                            Password = "1234",
-                            Pseudo = "RookAndRoll",
-                            Role = 1
+                            Password = "123456",
+                            Role = 1,
+                            Username = "RookAndRoll",
+                            isDeleted = false
                         },
                         new
                         {
                             Id = 16,
                             Birthdate = new DateTime(1985, 7, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Elo = 2000,
-                            Email = "strategist@example.com",
+                            Email = "strategist@chess.com",
                             Genre = 0,
-                            Password = "1234",
-                            Pseudo = "TheStrategist",
-                            Role = 1
+                            Password = "123456",
+                            Role = 1,
+                            Username = "TheStrategist",
+                            isDeleted = false
                         },
                         new
                         {
                             Id = 17,
                             Birthdate = new DateTime(1997, 6, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Elo = 1750,
-                            Email = "blitz@example.com",
+                            Email = "blitz@chess.com",
                             Genre = 1,
-                            Password = "1234",
-                            Pseudo = "BlitzQueen",
-                            Role = 1
+                            Password = "123456",
+                            Role = 1,
+                            Username = "BlitzQueen",
+                            isDeleted = false
                         },
                         new
                         {
                             Id = 18,
                             Birthdate = new DateTime(1980, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Elo = 2200,
-                            Email = "checkmate@example.com",
+                            Email = "checkmate@chess.com",
                             Genre = 0,
-                            Password = "1234",
-                            Pseudo = "CheckmateKing",
-                            Role = 1
+                            Password = "123456",
+                            Role = 1,
+                            Username = "CheckmateKing",
+                            isDeleted = false
                         },
                         new
                         {
                             Id = 19,
                             Birthdate = new DateTime(1992, 2, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Elo = 2300,
-                            Email = "endgame@example.com",
+                            Email = "endgame@chess.com",
                             Genre = 0,
-                            Password = "1234",
-                            Pseudo = "EndgameWizard",
-                            Role = 1
+                            Password = "123456",
+                            Role = 1,
+                            Username = "EndgameWizard",
+                            isDeleted = false
                         },
                         new
                         {
                             Id = 20,
                             Birthdate = new DateTime(1998, 9, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Elo = 1900,
-                            Email = "opening@example.com",
+                            Email = "opening@chess.com",
                             Genre = 2,
-                            Password = "1234",
-                            Pseudo = "OpeningGenius",
-                            Role = 1
+                            Password = "123456",
+                            Role = 1,
+                            Username = "OpeningGenius",
+                            isDeleted = false
                         });
                 });
 
-            modelBuilder.Entity("Checkmate.Entity.Registration", b =>
+            modelBuilder.Entity("TournamentUser", b =>
                 {
-                    b.HasOne("Checkmate.Entity.Tournament", "Tournament")
-                        .WithMany("Registrations")
-                        .HasForeignKey("TournamentId")
+                    b.Property<int>("RegistrationsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RegistrationsId1")
+                        .HasColumnType("int");
+
+                    b.HasKey("RegistrationsId", "RegistrationsId1");
+
+                    b.HasIndex("RegistrationsId1");
+
+                    b.ToTable("TournamentUser");
+                });
+
+            modelBuilder.Entity("TournamentUser", b =>
+                {
+                    b.HasOne("Checkmate.Entity.Tournament", null)
+                        .WithMany()
+                        .HasForeignKey("RegistrationsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Checkmate.Entity.User", "User")
-                        .WithMany("Registrations")
-                        .HasForeignKey("UserId")
+                    b.HasOne("Checkmate.Entity.User", null)
+                        .WithMany()
+                        .HasForeignKey("RegistrationsId1")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Tournament");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Checkmate.Entity.Tournament", b =>
-                {
-                    b.Navigation("Registrations");
-                });
-
-            modelBuilder.Entity("Checkmate.Entity.User", b =>
-                {
-                    b.Navigation("Registrations");
                 });
 #pragma warning restore 612, 618
         }

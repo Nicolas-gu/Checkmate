@@ -7,6 +7,7 @@ namespace Checkmate.Controllers
 {
     public class TournamentController(Chesscontext _db) : Controller
     {
+        [HttpGet]
         public IActionResult Index()
         {
             return View(_db.Tournaments.Select(t => new TournamentIndexModel(t)).ToList());

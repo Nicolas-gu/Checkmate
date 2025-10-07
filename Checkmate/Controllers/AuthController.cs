@@ -1,5 +1,6 @@
 ﻿using Checkmate.Entity;
 using Checkmate.Models;
+using Checkmate.Utils;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Checkmate.Controllers
@@ -15,11 +16,16 @@ namespace Checkmate.Controllers
         [HttpPost]
         public IActionResult Login(LoginForm form)
         {
-            User? user = _db.Users.FirstOrDefault(u => u.Pseudo == form.Username);
+            User? user = _db.Users.FirstOrDefault(u => u.Username == form.Username);
+            if (user != null && PasswordUtils.Verify(user.Password, form.Password))
+            {
 
+                return RedirectToAction("Index", "Tournament");
+            }
 
-            TempData["error"] = "Invalid Credentials";
+            TempData["error"] = "Nom d'utilisateur ou mot de passe invalide!";
             return View();
         }
     }
 }
+

@@ -15,10 +15,8 @@
          <tr>
             <th>Id</th>
             <th>Nom</th>
-            <th>Lieu</th> 
-            @* <th>Nombre de joueurs inscrit</th>  *@
-            <th>Min</th>
-            <th>Max</th>
+            <th>Lieu</th>
+            <th>Joueurs</th>
             <th>Catégories</th>
             <th>Elo min</th>
             <th>Elo max</th>
@@ -34,9 +32,8 @@
              <tr> 
                 <td>@item.Id</td> 
                 <td>@item.Name</td>
-                <td>@item.Place</td> 
-                <td>@item.MinPlayer</td>
-                <td>@item.MaxPlayer</td>
+                <td>@item.Place</td>
+                <td>@item.NbPlayer / @item.MaxPlayer</td>
                 <td>@string.Join(" - ", item.Categories)</td>
                 <td>@item.MinElo</td>
                 <td>@item.MaxElo</td>

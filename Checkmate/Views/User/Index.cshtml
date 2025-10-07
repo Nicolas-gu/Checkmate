@@ -1,0 +1,42 @@
+﻿@model List<UserIndexModel>
+
+<div>
+    <h3>Liste des joueurs</h3>
+</div>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nom d'utilisateur</th>
+            <th>Email</th>
+            <th>Date de naissance</th>
+            <th>Genre</th>
+            <th>Elo</th>
+            <th>Role</th>
+            <th>Tournoi inscrit</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Username</td>
+                <td>@item.Email</td>
+                <td>@item.Birthdate</td>
+                <td>@item.Genre</td>
+                <td>@item.Elo</td>
+                <td>@item.Role</td>
+                <td>@item.Registrations</td>
+                <td>
+                    <a class="btn btn-sm btn-success" asp-action="Detail" asp-route-id="@item.Id">
+                        <i class="fa-sharp fa-solid fa-eye"></i>
+                    </a>
+                    <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@item.Id">
+                        <i class="fa fa-trash"></i>
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
