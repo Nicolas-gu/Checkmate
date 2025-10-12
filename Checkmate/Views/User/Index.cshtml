@@ -20,7 +20,6 @@
             <th>Genre</th>
             <th>Elo</th>
             <th>Role</th>
-            <th>Tournoi inscrit</th>
         </tr>
     </thead>
     <tbody>
@@ -30,17 +29,13 @@
                 <td>@item.Id</td>
                 <td>@item.Username</td>
                 <td>@item.Email</td>
-                <td>@item.Birthdate</td>
+                <td>@item.Birthdate.ToString("dd/MM/yyyy")</td>
                 <td>@item.Genre</td>
                 <td>@item.Elo</td>
                 <td>@item.Role</td>
-                <td>@item.Registrations</td>
                 <td>
                     <a class="btn btn-sm" asp-action="Detail" asp-route-id="@item.Id" title="Voir">
                         <i class="fa-regular fa-chess-knight"></i>
-                    </a>
-                    <a class="btn btn-sm" asp-action="Delete" asp-route-id="@item.Id" title="Supprimer">
-                        <i class="fa-solid fa-xmark"></i>
                     </a>
                 </td>
             </tr>

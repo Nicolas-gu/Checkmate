@@ -6,48 +6,80 @@
 
 <h3>Joueur : </h3>
 <h4>@Model.Username</h4>
-
-<div>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            Identifiant :
-        </dt>
-        <dd class = "col-sm-9">
-            @Html.DisplayFor(model => model.Id)
-        </dd>
-        <dt class = "col-sm-2">
-            Email :
-        </dt>
-        <dd class = "col-sm-9">
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-        <dt class = "col-sm-2">
-            Date de naissance :
-        </dt>
-        <dd class = "col-sm-9">
-            @Html.DisplayFor(model => model.Birthdate)
-        </dd>
-        <dt class = "col-sm-2">
-            Genre :
-        </dt>
-        <dd class = "col-sm-9">
-            @Html.DisplayFor(model => model.Genre)
-        </dd>
-        <dt class = "col-sm-2">
-            Elo :
-        </dt>
-        <dd class = "col-sm-9">
-            @Html.DisplayFor(model => model.Elo)
-        </dd>
-        <dt class = "col-sm-2">
-            Rôle :
-        </dt>
-        <dd class = "col-sm-9">
-            @Html.DisplayFor(model => model.Role)
-        </dd>
-    </dl>
+<hr />
+<div class="main">
+    <div class="left">
+        <dl class="row">
+            <dt class="col-sm-3">
+                Identifiant :
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Id)
+            </dd>
+            <dt class="col-sm-3">
+                Email :
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Email)
+            </dd>
+            <dt class="col-sm-3">
+                Date de naissance :
+            </dt>
+            <dd class="col-sm-9">
+                @Model.Birthdate.ToString("dd/MM/yyyy")
+            </dd>
+            <dt class="col-sm-3">
+                Genre :
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Genre)
+            </dd>
+            <dt class="col-sm-3">
+                Elo :
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Elo)
+            </dd>
+            <dt class="col-sm-3">
+                Rôle :
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Role)
+            </dd>
+        </dl>
+    </div>
+    <div class="right">
+        <h4>
+            Liste des tournois :
+        </h4>
+        <br>
+        <table class="table table-bordered">
+            @if (Model.Registrations != null && Model.Registrations.Any())
+            {
+                <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Lieu</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var t in Model.Registrations)
+                    {
+                        <tr>
+                            <td>@t.Name</td>
+                            <td>@t.Place</td>
+                        </tr>
+                    }
+                </tbody>
+            }
+            else
+            {
+                <span>Aucun tournoi</span>
+            }
+        </table>
+    </div>
 </div>
+
 <div>
     <a class="btn btn-sm" asp-action="Index">
         <i class="fa-regular fa-chess-pawn"></i>

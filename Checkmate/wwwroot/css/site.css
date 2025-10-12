@@ -55,3 +55,7 @@ body {
 .select2{
     width: 95px;
 }
+.control-label{
+    color: black;
+    
+}

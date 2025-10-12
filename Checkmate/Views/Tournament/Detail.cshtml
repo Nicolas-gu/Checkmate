@@ -6,8 +6,7 @@
 }
 <h3>Tournoi : </h3>
 <h4>@Model.Name</h4>
-<br />
-
+<hr />
 <div>
     @if (ViewBag.IsUserRegistered)
     {
@@ -79,16 +78,28 @@
                     @Html.DisplayFor(model => model.Status)
                 </dd>
                 <dt class = "col-sm-4">
-                    Fin des inscriptions :
-                </dt>
-                <dd class = "col-sm-8">
-                    @Html.DisplayFor(model => model.CloseDate)
-                </dd>
-                <dt class = "col-sm-4">
                     Ronde courante :
                 </dt>
                 <dd class = "col-sm-8">
                     @Html.DisplayFor(model => model.CurrentRound)
+                </dd>
+                <dt class = "col-sm-4">
+                    Fin des inscriptions :
+                </dt>
+                <dd class = "col-sm-8">
+                    @Model.CloseDate.ToString("dd/MM/yyyy")
+                </dd>
+                <dt class="col-sm-4">
+                    Date de création :
+                </dt>
+                <dd class="col-sm-8">
+                    @Model.CreationDate.ToString("dd/MM/yyyy")
+                </dd>
+                <dt class="col-sm-4">
+                    Dernière mise à jour :
+                </dt>
+                <dd class="col-sm-8">
+                    @Model.LastUpdateDate.ToString("dd/MM/yyyy")
                 </dd>
             </dl>
         </div>
@@ -143,3 +154,4 @@
         </a>
     }
 </div>
+

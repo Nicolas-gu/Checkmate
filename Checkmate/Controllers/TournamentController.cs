@@ -91,6 +91,7 @@ namespace Checkmate.Controllers
                 tournament.WomenOnly = form.WomenOnly;
                 tournament.LastUpdateDate = DateTime.Now;
                 _db.SaveChanges();
+                tournament.LastUpdateDate = DateTime.Now;
                 return RedirectToAction("Index");
             }
             TempData["error"] = "Formulaire Invalide";
@@ -126,7 +127,7 @@ namespace Checkmate.Controllers
             if (tournament.Status != Tournament.StatusType.Waiting)
             {
                 TempData["error"] = "Impossible de supprimer un tournois en cours";
-                return RedirectToAction("Index");
+                return RedirectToAction("Detail", new { id = id });
             }
             if(tournament.Registrations != null)
             {
@@ -288,7 +289,7 @@ namespace Checkmate.Controllers
             //}
             tournament.Status = Tournament.StatusType.InProgress;
             tournament.CurrentRound = 1;
-            tournament.CloseDate = DateTime.Now;
+            tournament.LastUpdateDate = DateTime.Now;
 
             _db.SaveChanges();
             return RedirectToAction("Index");

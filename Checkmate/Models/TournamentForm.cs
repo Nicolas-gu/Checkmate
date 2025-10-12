@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Checkmate.Services;
+using System.ComponentModel.DataAnnotations;
 using static Checkmate.Entity.Tournament;
 
 namespace Checkmate.Models
@@ -10,22 +11,24 @@ namespace Checkmate.Models
         [StringLength(50, ErrorMessage = "Le nom ne peut pas dépasser 50 caractères")]
         public string Name { get; set; }
 
-        [StringLength(50, ErrorMessage = "Le nom ne peut pas dépasser 50 caractères")]
+        [StringLength(50, ErrorMessage = "Le lieu ne peut pas dépasser 50 caractères")]
         public string? Place { get; set; }
-
-        [Required(ErrorMessage = "Le nombre minimum de joueur est obligatoire")]
-        [Range(2, 32, ErrorMessage = "Le nombre minimum de joueur doit être comprit entre 2 et 32")]
-        public int MinPlayer { get; set; }
         
         [Required(ErrorMessage = "Le nombre maximum de joueur est obligatoire")]
         [Range(2, 32, ErrorMessage = "Le nombre maximum de joueur doit être comprit entre 2 et 32")]
         public int MaxPlayer { get; set; }
 
-        [Range(0, 3000, ErrorMessage = "L'elo doit être compris entre 0 et 3000")]
-        public int? MinElo { get; set; }
+        [Required(ErrorMessage = "Le nombre minimum de joueur est obligatoire")]
+        [Range(2, 32, ErrorMessage = "Le nombre minimum de joueur doit être comprit entre 2 et 32")]
+        [SmallerThan("MaxPlayer", ErrorMessage = "Le nombre minimum de joueur doit pêtre plus petit ou égal au maximum")]
+        public int MinPlayer { get; set; }
 
         [Range(0, 3000, ErrorMessage = "L'elo doit être compris entre 0 et 3000")]
         public int? MaxElo {  get; set; }
+
+        [Range(0, 3000, ErrorMessage = "L'elo doit être compris entre 0 et 3000")]
+        [SmallerThan("MaxElo", ErrorMessage = "L'elo minimum doit être plus petit ou égal au maximum")]
+        public int? MinElo { get; set; }
 
         [Required(ErrorMessage = "Choisissez au moins une catégorie")]
         public List<int> Category { get; set; }

@@ -38,7 +38,7 @@
                 <td>@item.MinElo</td>
                 <td>@item.MaxElo</td>
                 <td>@item.Status</td>
-                <td>@item.CloseDate</td>
+                <td>@item.CloseDate.ToString("dd/MM/yyyy")</td>
                 <td>@item.CurrentRound</td>
                 <td>
                     <a class="btn btn-sm" asp-action="Detail" asp-route-id="@item.Id">

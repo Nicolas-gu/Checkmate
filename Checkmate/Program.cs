@@ -48,6 +48,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Tournament}/{action=Index}");
+    pattern: "{controller=Home}/{action=Index}");
 
 app.Run();
