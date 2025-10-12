@@ -1,8 +1,15 @@
 ﻿@model List<UserIndexModel>
 
-<div>
-    <h3>Liste des joueurs</h3>
+<br />
+<div class="navbar-collapse collapse d-sm-inline-flex align-items-center">
+    <h3 class="me-3">Liste des joueurs</h3>
+    @if (User.IsInRole("admin"))
+    {
+        <a class="btn" asp-area="" asp-controller="User" asp-action="Create"><i class="fa-regular fa-chess-king"></i> Enregistrer un nouveau joueur</a>
+    }
 </div>
+<br />
+<br />
 <table class="table table-bordered">
     <thead>
         <tr>
@@ -29,11 +36,11 @@
                 <td>@item.Role</td>
                 <td>@item.Registrations</td>
                 <td>
-                    <a class="btn btn-sm btn-success" asp-action="Detail" asp-route-id="@item.Id">
-                        <i class="fa-sharp fa-solid fa-eye"></i>
+                    <a class="btn btn-sm" asp-action="Detail" asp-route-id="@item.Id" title="Voir">
+                        <i class="fa-regular fa-chess-knight"></i>
                     </a>
-                    <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@item.Id">
-                        <i class="fa fa-trash"></i>
+                    <a class="btn btn-sm" asp-action="Delete" asp-route-id="@item.Id" title="Supprimer">
+                        <i class="fa-solid fa-xmark"></i>
                     </a>
                 </td>
             </tr>

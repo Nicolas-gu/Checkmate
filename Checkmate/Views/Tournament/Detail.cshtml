@@ -1,81 +1,145 @@
-﻿@model Checkmate.Entity.Tournament
+﻿@using System.Security.Claims
+@model Checkmate.Entity.Tournament
 
 @{
     ViewData["Title"] = "Detail";
 }
-
-<h1>Detail</h1>
+<h3>Tournoi : </h3>
+<h4>@Model.Name</h4>
+<br />
 
 <div>
-    <h4>TournamentDetailModel</h4>
-    <a class="nav-link text-dark" asp-area="" asp-controller="Tournament" asp-action="Create">S'inscrire à ce tournoi</a>
+    @if (ViewBag.IsUserRegistered)
+    {
+        <form asp-controller="Tournament" asp-action="UnRegister" method="post">
+            <input type="hidden" name="tournamentId" value="@Model.Id" />
+            <button class="btn" asp-controller="Tournament" asp-action="UnRegister"><i class="fa-solid fa-xmark"></i> Se désinscrire</button>
+        </form>
+    }
+    else
+    {
+        <form asp-controller="Tournament" asp-action="Register" method="post" class="d-inline">
+            <input type="hidden" name="tournamentId" value="@Model.Id" />
+            <button type="submit" class="btn"><i class="fa-regular fa-chess-queen"></i> S'inscrire à ce tournoi</button>
+        </form>
+    }
+   
+    @if (TempData["error"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["error"]
+        </div>
+    }
+
+    @if (TempData["success"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["success"]
+        </div>
+    }
     <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Id)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Id)
-        </dd>
-        <dt class = "col-sm-2">
-            Nom :
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            Lieu :
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Place)
-        </dd>
-        <dt class = "col-sm-2">
-            Nombre de joueurs :
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.NbPlayer) / @Model.MaxPlayer
-        </dd>
-        <dt class = "col-sm-2">
-            Elo minimum :
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MinElo)
-        </dd>
-        <dt class = "col-sm-2">
-            Elo maximum :
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MaxElo)
-        </dd>
-        <dt class = "col-sm-2">
-            Status :
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Status)
-        </dd>
-        <dt class = "col-sm-2">
-            Limite d'inscription :
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CloseDate)
-        </dd>
-        <dt class = "col-sm-2">
-            Ronde courante :
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CurrentRound)
-        </dd>
-    </dl>
+    <br />
+    <div class="main">
+        <div class="left">
+            <dl class="row">
+                <dt class = "col-sm-4">
+                    Identifiant :
+                </dt>
+                <dd class = "col-sm-8">
+                    @Html.DisplayFor(model => model.Id)
+                </dd>
+                <dt class = "col-sm-4">
+                    Lieu :
+                </dt>
+                <dd class = "col-sm-8">
+                    @Html.DisplayFor(model => model.Place)
+                </dd>
+                <dt class = "col-sm-4">
+                    Joueurs :
+                </dt>
+                <dd class = "col-sm-8">
+                    @Html.DisplayFor(model => model.NbPlayer) / @Model.MaxPlayer
+                </dd>
+                <dt class = "col-sm-4">
+                    Catégories :
+                </dt>
+                <dd class = "col-sm-8">
+                    @Model.Category.ToString()
+                </dd>
+                <dt class="col-sm-4">
+                    Elo min / max :
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.MinElo) / @Model.MaxElo
+                </dd>
+                <dt class = "col-sm-4">
+                    Status :
+                </dt>
+                <dd class = "col-sm-8">
+                    @Html.DisplayFor(model => model.Status)
+                </dd>
+                <dt class = "col-sm-4">
+                    Fin des inscriptions :
+                </dt>
+                <dd class = "col-sm-8">
+                    @Html.DisplayFor(model => model.CloseDate)
+                </dd>
+                <dt class = "col-sm-4">
+                    Ronde courante :
+                </dt>
+                <dd class = "col-sm-8">
+                    @Html.DisplayFor(model => model.CurrentRound)
+                </dd>
+            </dl>
+        </div>
+        <div class="right">
+            <h4>
+                Liste des joueurs :
+            </h4>
+            <br>
+            <table class="table table-bordered">
+                @if (Model.Registrations != null && Model.Registrations.Any())
+                {
+                    <thead>
+                         <tr>
+                            <th>Nom</th>
+                            <th>Elo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var player in Model.Registrations)
+                        {
+                            <tr>
+                                <td>@player.Username</td>
+                                <td>@player.Elo</td>
+                            </tr>
+                        }
+                    </tbody>
+                }
+                else
+                {
+                    <span>Aucun joueur inscrit pour le moment.</span>
+                }
+            </table>
+        </div>
+    </div>
 </div>
+<br />
 <div>
-    <a class="btn btn-sm btn-success" asp-action="Index">
-        <i class="fa-solid fa-arrow-left"></i>
+    <a class="btn btn-sm" asp-action="Index">
+        <i class="fa-regular fa-chess-pawn"></i>
+        Retour
     </a>
-    <a class="btn btn-sm btn-success" asp-action="Edit" asp-route-id="@Model.Id">
-        <i class="fa fa-pencil-square"></i>
-    </a>
-    <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@Model.Id">
-        <i class="fa fa-trash"></i>
-    </a>
-    
+    @if (User.IsInRole("admin"))
+    {
+        <a class="btn btn-sm" asp-action="StartTournament" asp-route-id="@Model.Id" title="Démarrer le tournoi">
+            <i class="fa-regular fa-chess-rook"></i>
+        </a>
+        <a class="btn btn-sm" asp-action="Edit" asp-route-id="@Model.Id" title="Editer">
+            <i class="fa-regular fa-chess-bishop"></i>
+        </a>
+        <a class="btn btn-sm" asp-action="Delete" asp-route-id="@Model.Id" title="Supprimer">
+            <i class="fa-solid fa-xmark"></i>
+        </a>
+    }
 </div>

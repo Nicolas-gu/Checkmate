@@ -1,15 +1,15 @@
 ﻿@model List<TournamentIndexModel>
 
-<div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-    <ul class="navbar-nav flex-grow-1">
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Tournament" asp-action="Create">Creer un nouveau tournoi</a>
-        </li>
-    </ul>
+<br />
+<div class="navbar-collapse collapse d-sm-inline-flex align-items-center">
+    <h3 class="me-3">Liste des tournois</h3>
+    @if (User.IsInRole("admin"))
+    {
+        <a class="btn" asp-area="" asp-controller="Tournament" asp-action="Create"><i class="fa-regular fa-chess-king"></i> Creer un nouveau tournoi</a>
+    }
 </div>
-<div>
-    <h3>Liste des tournois</h3>
-</div>
+<br />
+<br />
 <table class="table table-bordered">
      <thead>
          <tr>
@@ -33,7 +33,7 @@
                 <td>@item.Id</td> 
                 <td>@item.Name</td>
                 <td>@item.Place</td>
-                <td>@item.NbPlayer / @item.MaxPlayer</td>
+                <td>@item.NbPlayer / @item.MaxPlayer </td>
                 <td>@string.Join(" - ", item.Categories)</td>
                 <td>@item.MinElo</td>
                 <td>@item.MaxElo</td>
@@ -41,15 +41,19 @@
                 <td>@item.CloseDate</td>
                 <td>@item.CurrentRound</td>
                 <td>
-                    <a class="btn btn-sm btn-success" asp-action="Detail" asp-route-id="@item.Id">
-                        <i class="fa-sharp fa-solid fa-eye"></i>
+                    <a class="btn btn-sm" asp-action="Detail" asp-route-id="@item.Id">
+                        <i class="fa-regular fa-chess-knight"></i>
+                        Voir
                     </a>
-                    <a class="btn btn-sm btn-success" asp-action="Edit" asp-route-id="@item.Id">
-                        <i class="fa fa-pencil-square"></i>
-                    </a>
-                    <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@item.Id">
-                        <i class="fa fa-trash"></i>
-                    </a>
+                    @if (User.IsInRole("admin"))
+                    {
+                        <a class="btn btn-sm" asp-action="Edit" asp-route-id="@item.Id" title="Editer">
+                            <i class="fa-regular fa-chess-bishop"></i>
+                        </a>
+                        <a class="btn btn-sm" asp-action="Delete" asp-route-id="@item.Id" title="Supprimer">
+                            <i class="fa-solid fa-xmark"></i>
+                        </a>
+                    }
                 </td>
             </tr> 
          } 

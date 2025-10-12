@@ -1,0 +1,56 @@
+﻿@model Checkmate.Entity.User
+
+@{
+    ViewData["Title"] = "Detail";
+}
+
+<h3>Joueur : </h3>
+<h4>@Model.Username</h4>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            Identifiant :
+        </dt>
+        <dd class = "col-sm-9">
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+        <dt class = "col-sm-2">
+            Email :
+        </dt>
+        <dd class = "col-sm-9">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt class = "col-sm-2">
+            Date de naissance :
+        </dt>
+        <dd class = "col-sm-9">
+            @Html.DisplayFor(model => model.Birthdate)
+        </dd>
+        <dt class = "col-sm-2">
+            Genre :
+        </dt>
+        <dd class = "col-sm-9">
+            @Html.DisplayFor(model => model.Genre)
+        </dd>
+        <dt class = "col-sm-2">
+            Elo :
+        </dt>
+        <dd class = "col-sm-9">
+            @Html.DisplayFor(model => model.Elo)
+        </dd>
+        <dt class = "col-sm-2">
+            Rôle :
+        </dt>
+        <dd class = "col-sm-9">
+            @Html.DisplayFor(model => model.Role)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a class="btn btn-sm" asp-action="Index">
+        <i class="fa-regular fa-chess-pawn"></i>
+        Retour
+    </a>
+</div>

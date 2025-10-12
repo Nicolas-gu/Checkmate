@@ -18,5 +18,40 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    
+}
+/*.main-background {
+    background-image: url("/images/chessFont2.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+   
+    border-radius: 10px;
+    padding: 1rem;
+}*/
+.container {
+    margin: 0 auto !important;
+}
+.main{
+    display: flex;
+}
+.left{
+    max-width: 50%;
+}
+.right {
+    width: 50%;
+}
+
+.btn {
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+}
+.btn:hover {
+    background-color: black;
+    color: white;
+}
+.select2{
+    width: 95px;
 }

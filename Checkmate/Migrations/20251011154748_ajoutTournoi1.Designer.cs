@@ -4,6 +4,7 @@ using Checkmate;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Checkmate.Migrations
 {
     [DbContext(typeof(Chesscontext))]
-    partial class ChesscontextModelSnapshot : ModelSnapshot
+    [Migration("20251011154748_ajoutTournoi1")]
+    partial class ajoutTournoi1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -82,10 +85,10 @@ namespace Checkmate.Migrations
                         {
                             Id = 1,
                             Category = 6,
-                            CloseDate = new DateTime(2025, 11, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreationDate = new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CloseDate = new DateTime(2025, 10, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreationDate = new DateTime(2025, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CurrentRound = 0,
-                            LastUpdateDate = new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdateDate = new DateTime(2025, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             MaxElo = 2800,
                             MaxPlayer = 32,
                             MinElo = 1600,
@@ -100,10 +103,10 @@ namespace Checkmate.Migrations
                         {
                             Id = 2,
                             Category = 2,
-                            CloseDate = new DateTime(2025, 10, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreationDate = new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CloseDate = new DateTime(2025, 10, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreationDate = new DateTime(2025, 9, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CurrentRound = 0,
-                            LastUpdateDate = new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdateDate = new DateTime(2025, 9, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             MaxElo = 2400,
                             MaxPlayer = 16,
                             MinElo = 1200,
@@ -118,10 +121,10 @@ namespace Checkmate.Migrations
                         {
                             Id = 3,
                             Category = 2,
-                            CloseDate = new DateTime(2025, 10, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreationDate = new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CloseDate = new DateTime(2025, 8, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreationDate = new DateTime(2025, 8, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CurrentRound = 0,
-                            LastUpdateDate = new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdateDate = new DateTime(2025, 8, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             MaxElo = 2200,
                             MaxPlayer = 20,
                             MinElo = 1000,
@@ -136,10 +139,10 @@ namespace Checkmate.Migrations
                         {
                             Id = 4,
                             Category = 1,
-                            CloseDate = new DateTime(2025, 10, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreationDate = new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CloseDate = new DateTime(2025, 7, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreationDate = new DateTime(2025, 7, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CurrentRound = 0,
-                            LastUpdateDate = new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdateDate = new DateTime(2025, 7, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             MaxElo = 1600,
                             MaxPlayer = 12,
                             MinElo = 800,
@@ -154,10 +157,10 @@ namespace Checkmate.Migrations
                         {
                             Id = 5,
                             Category = 6,
-                            CloseDate = new DateTime(2025, 11, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreationDate = new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CloseDate = new DateTime(2025, 7, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreationDate = new DateTime(2025, 6, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CurrentRound = 0,
-                            LastUpdateDate = new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdateDate = new DateTime(2025, 6, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             MaxElo = 2600,
                             MaxPlayer = 24,
                             MinElo = 1500,
@@ -172,10 +175,10 @@ namespace Checkmate.Migrations
                         {
                             Id = 6,
                             Category = 2,
-                            CloseDate = new DateTime(2025, 10, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreationDate = new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CloseDate = new DateTime(2025, 9, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreationDate = new DateTime(2025, 9, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CurrentRound = 0,
-                            LastUpdateDate = new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdateDate = new DateTime(2025, 9, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             MaxElo = 2400,
                             MaxPlayer = 20,
                             MinElo = 1300,
@@ -190,10 +193,10 @@ namespace Checkmate.Migrations
                         {
                             Id = 7,
                             Category = 1,
-                            CloseDate = new DateTime(2025, 10, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreationDate = new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CloseDate = new DateTime(2025, 9, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreationDate = new DateTime(2025, 9, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CurrentRound = 0,
-                            LastUpdateDate = new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdateDate = new DateTime(2025, 9, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             MaxElo = 1400,
                             MaxPlayer = 16,
                             MinElo = 0,
@@ -208,10 +211,10 @@ namespace Checkmate.Migrations
                         {
                             Id = 8,
                             Category = 2,
-                            CloseDate = new DateTime(2025, 11, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreationDate = new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CloseDate = new DateTime(2025, 9, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreationDate = new DateTime(2025, 8, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CurrentRound = 0,
-                            LastUpdateDate = new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdateDate = new DateTime(2025, 8, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             MaxElo = 2600,
                             MaxPlayer = 32,
                             MinElo = 1400,
@@ -226,10 +229,10 @@ namespace Checkmate.Migrations
                         {
                             Id = 9,
                             Category = 3,
-                            CloseDate = new DateTime(2025, 10, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreationDate = new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CloseDate = new DateTime(2025, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreationDate = new DateTime(2025, 9, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CurrentRound = 0,
-                            LastUpdateDate = new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdateDate = new DateTime(2025, 9, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             MaxElo = 2200,
                             MaxPlayer = 20,
                             MinElo = 1100,
@@ -244,10 +247,10 @@ namespace Checkmate.Migrations
                         {
                             Id = 10,
                             Category = 2,
-                            CloseDate = new DateTime(2025, 11, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreationDate = new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CloseDate = new DateTime(2025, 6, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreationDate = new DateTime(2025, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CurrentRound = 0,
-                            LastUpdateDate = new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdateDate = new DateTime(2025, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             MaxElo = 2600,
                             MaxPlayer = 28,
                             MinElo = 1500,
@@ -262,10 +265,10 @@ namespace Checkmate.Migrations
                         {
                             Id = 11,
                             Category = 6,
-                            CloseDate = new DateTime(2025, 11, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreationDate = new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CloseDate = new DateTime(2025, 9, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreationDate = new DateTime(2025, 8, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CurrentRound = 0,
-                            LastUpdateDate = new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdateDate = new DateTime(2025, 8, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             MaxElo = 2800,
                             MaxPlayer = 32,
                             MinElo = 1600,
@@ -280,10 +283,10 @@ namespace Checkmate.Migrations
                         {
                             Id = 12,
                             Category = 1,
-                            CloseDate = new DateTime(2025, 11, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreationDate = new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CloseDate = new DateTime(2025, 10, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreationDate = new DateTime(2025, 9, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CurrentRound = 0,
-                            LastUpdateDate = new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdateDate = new DateTime(2025, 9, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             MaxElo = 2100,
                             MaxPlayer = 24,
                             MinElo = 1000,
@@ -298,10 +301,10 @@ namespace Checkmate.Migrations
                         {
                             Id = 13,
                             Category = 2,
-                            CloseDate = new DateTime(2025, 10, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreationDate = new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CloseDate = new DateTime(2025, 9, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreationDate = new DateTime(2025, 8, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CurrentRound = 0,
-                            LastUpdateDate = new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdateDate = new DateTime(2025, 8, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             MaxElo = 2500,
                             MaxPlayer = 16,
                             MinElo = 1000,
@@ -316,10 +319,10 @@ namespace Checkmate.Migrations
                         {
                             Id = 14,
                             Category = 4,
-                            CloseDate = new DateTime(2025, 10, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreationDate = new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CloseDate = new DateTime(2025, 9, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreationDate = new DateTime(2025, 9, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CurrentRound = 0,
-                            LastUpdateDate = new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdateDate = new DateTime(2025, 9, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             MaxElo = 2500,
                             MaxPlayer = 20,
                             MinElo = 1300,
@@ -334,10 +337,10 @@ namespace Checkmate.Migrations
                         {
                             Id = 15,
                             Category = 1,
-                            CloseDate = new DateTime(2025, 10, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreationDate = new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CloseDate = new DateTime(2025, 10, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreationDate = new DateTime(2025, 9, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CurrentRound = 0,
-                            LastUpdateDate = new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdateDate = new DateTime(2025, 9, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             MaxElo = 1500,
                             MaxPlayer = 16,
                             MinElo = 800,
@@ -352,10 +355,10 @@ namespace Checkmate.Migrations
                         {
                             Id = 16,
                             Category = 4,
-                            CloseDate = new DateTime(2025, 10, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreationDate = new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CloseDate = new DateTime(2025, 9, 17, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreationDate = new DateTime(2025, 8, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CurrentRound = 0,
-                            LastUpdateDate = new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdateDate = new DateTime(2025, 8, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             MaxElo = 2800,
                             MaxPlayer = 20,
                             MinElo = 1500,
@@ -370,10 +373,10 @@ namespace Checkmate.Migrations
                         {
                             Id = 17,
                             Category = 3,
-                            CloseDate = new DateTime(2025, 11, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreationDate = new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CloseDate = new DateTime(2025, 5, 17, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreationDate = new DateTime(2025, 4, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CurrentRound = 0,
-                            LastUpdateDate = new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdateDate = new DateTime(2025, 4, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             MaxElo = 2500,
                             MaxPlayer = 32,
                             MinElo = 1300,
@@ -388,10 +391,10 @@ namespace Checkmate.Migrations
                         {
                             Id = 18,
                             Category = 2,
-                            CloseDate = new DateTime(2025, 10, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreationDate = new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CloseDate = new DateTime(2025, 9, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreationDate = new DateTime(2025, 9, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CurrentRound = 0,
-                            LastUpdateDate = new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdateDate = new DateTime(2025, 9, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             MaxElo = 2200,
                             MaxPlayer = 16,
                             MinElo = 1100,
@@ -406,10 +409,10 @@ namespace Checkmate.Migrations
                         {
                             Id = 19,
                             Category = 6,
-                            CloseDate = new DateTime(2025, 11, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreationDate = new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CloseDate = new DateTime(2025, 6, 29, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreationDate = new DateTime(2025, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CurrentRound = 0,
-                            LastUpdateDate = new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdateDate = new DateTime(2025, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             MaxElo = 2700,
                             MaxPlayer = 28,
                             MinElo = 1500,
@@ -424,10 +427,10 @@ namespace Checkmate.Migrations
                         {
                             Id = 20,
                             Category = 1,
-                            CloseDate = new DateTime(2025, 10, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreationDate = new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CloseDate = new DateTime(2025, 10, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreationDate = new DateTime(2025, 9, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CurrentRound = 0,
-                            LastUpdateDate = new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdateDate = new DateTime(2025, 9, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             MaxElo = 1600,
                             MaxPlayer = 20,
                             MinElo = 800,

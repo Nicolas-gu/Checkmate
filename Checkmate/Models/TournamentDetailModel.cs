@@ -16,5 +16,6 @@ namespace Checkmate.Models
         public Tournament.StatusType Status { get; set; } = tournament.Status;
         public DateTime CloseDate { get; set; } = tournament.CloseDate;
         public int CurrentRound { get; set; } = tournament.CurrentRound;
+        public bool IsUserRegistered { get; set; }
     }
 }

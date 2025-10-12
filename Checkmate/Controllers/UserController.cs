@@ -41,7 +41,8 @@ namespace Checkmate.Controllers
                     Email = form.Email,
                     Birthdate = form.Birthdate,
                     Elo = form.Elo ?? 1200,
-                    Password = PasswordUtils.Hash(form.Password),
+                    //Password = PasswordUtils.Hash(form.Password),
+                    Password = form.Password,
                     Genre = form.Genre,
                     Role = Entity.User.RoleType.Player,
                 });
@@ -51,6 +52,12 @@ namespace Checkmate.Controllers
             // TODO afficher dans le main layout 
             TempData["error"] = "Invaid Data";
             return View();
+        }
+
+        [HttpGet]
+        public IActionResult Detail(int id)
+        {
+            return View(_db.Users.Find(id));
         }
     }
 }

@@ -4,9 +4,8 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h3>Créer un nouveau tournoi</h3>
 
-<h4>TournamentForm</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -42,6 +41,7 @@
                 <input asp-for="MaxElo" class="form-control" />
                 <span asp-validation-for="MaxElo" class="text-danger"></span>
             </div>
+            <br />
             <div class="form-group">
                 <label asp-for="Category" class="control-label"></label>
                 <select class="select2" asp-for="Category" class="form-control">
@@ -51,26 +51,31 @@
                 </select>
                 <span asp-validation-for="Category" class="text-danger"></span>
             </div>
-            
+            <br />
             <div class="form-group form-check">
                 <label class="form-check-label">
                     <input class="form-check-input" asp-for="WomenOnly" /> @Html.DisplayNameFor(model => model.WomenOnly)
                 </label>
             </div>
+            <br />
             <div class="form-group"> 
                  <label asp-for="CloseDate" class="control-label"></label> 
                  <input asp-for="CloseDate" class="form-control" /> 
                  <span asp-validation-for="CloseDate" class="text-danger"></span> 
              </div>
+             <br />
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <button type="submit" class="btn btn-sm">
+                    <i class="fa-regular fa-chess-queen"></i>
+                    Créer
+                </button>
+                <a class="btn btn-sm" asp-action="Index">
+                    <i class="fa-regular fa-chess-pawn"></i>
+                    Retour
+                </a>
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

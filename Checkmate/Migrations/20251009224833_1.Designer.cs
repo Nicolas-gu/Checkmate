@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Checkmate.Migrations
 {
     [DbContext(typeof(Chesscontext))]
-    [Migration("20251007085809_test1")]
-    partial class test1
+    [Migration("20251009224833_1")]
+    partial class _1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -63,6 +63,9 @@ namespace Checkmate.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("NbPlayer")
+                        .HasColumnType("int");
 
                     b.Property<string>("Place")
                         .HasColumnType("nvarchar(max)");
