@@ -8,16 +8,157 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Checkmate.Migrations
 {
     /// <inheritdoc />
-    public partial class addUser : Migration
+    public partial class init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Tournaments",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Place = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    MaxPlayer = table.Column<int>(type: "int", nullable: false),
+                    MinPlayer = table.Column<int>(type: "int", nullable: false),
+                    NbPlayer = table.Column<int>(type: "int", nullable: true),
+                    MaxElo = table.Column<int>(type: "int", nullable: true),
+                    MinElo = table.Column<int>(type: "int", nullable: true),
+                    Category = table.Column<int>(type: "int", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false),
+                    CurrentRound = table.Column<int>(type: "int", nullable: false),
+                    WomenOnly = table.Column<bool>(type: "bit", nullable: false),
+                    CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LastUpdateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CloseDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Tournaments", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Users",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Username = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Birthdate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Genre = table.Column<int>(type: "int", nullable: false),
+                    Elo = table.Column<int>(type: "int", nullable: true),
+                    Role = table.Column<int>(type: "int", nullable: false),
+                    isDeleted = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Encounters",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TournamentId = table.Column<int>(type: "int", nullable: false),
+                    WhitePlayerId = table.Column<int>(type: "int", nullable: false),
+                    BlackPlayerId = table.Column<int>(type: "int", nullable: false),
+                    Round = table.Column<int>(type: "int", nullable: false),
+                    Results = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Encounters", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Encounters_Tournaments_TournamentId",
+                        column: x => x.TournamentId,
+                        principalTable: "Tournaments",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TournamentUser",
+                columns: table => new
+                {
+                    RegistrationsId = table.Column<int>(type: "int", nullable: false),
+                    RegistrationsId1 = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TournamentUser", x => new { x.RegistrationsId, x.RegistrationsId1 });
+                    table.ForeignKey(
+                        name: "FK_TournamentUser_Tournaments_RegistrationsId",
+                        column: x => x.RegistrationsId,
+                        principalTable: "Tournaments",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_TournamentUser_Users_RegistrationsId1",
+                        column: x => x.RegistrationsId1,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Tournaments",
+                columns: new[] { "Id", "Category", "CloseDate", "CreationDate", "CurrentRound", "LastUpdateDate", "MaxElo", "MaxPlayer", "MinElo", "MinPlayer", "Name", "NbPlayer", "Place", "Status", "WomenOnly" },
+                values: new object[,]
+                {
+                    { 1, 6, new DateTime(2025, 11, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), 2800, 32, 1600, 8, "Open International de Paris", 0, "Paris", 0, false },
+                    { 2, 2, new DateTime(2025, 10, 27, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), 2400, 16, 1200, 4, "Championnat Féminin de Lyon", 0, "Lyon", 0, true },
+                    { 3, 2, new DateTime(2025, 10, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), 2200, 20, 1000, 6, "Blitz d’Hiver de Lille", 0, "Lille", 0, false },
+                    { 4, 1, new DateTime(2025, 10, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), 1600, 12, 800, 4, "Tournoi Jeunes Espoirs", 0, "Marseille", 0, false },
+                    { 5, 6, new DateTime(2025, 11, 4, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), 2600, 24, 1500, 8, "Grand Prix de Bordeaux", 0, "Bordeaux", 0, false },
+                    { 6, 2, new DateTime(2025, 10, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), 2400, 20, 1300, 6, "Open Mixte de Toulouse", 0, "Toulouse", 0, false },
+                    { 7, 1, new DateTime(2025, 10, 27, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), 1400, 16, 0, 4, "Tournoi des Rookies", 0, "Nantes", 0, false },
+                    { 8, 2, new DateTime(2025, 11, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), 2600, 32, 1400, 10, "Championnat de Bretagne", 0, "Rennes", 0, false },
+                    { 9, 3, new DateTime(2025, 10, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), 2200, 20, 1100, 4, "Open Féminin de Nice", 0, "Nice", 0, true },
+                    { 10, 2, new DateTime(2025, 11, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), 2600, 28, 1500, 12, "Tournoi Rapide du Capitole", 0, "Toulouse", 0, false },
+                    { 11, 6, new DateTime(2025, 11, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), 2800, 32, 1600, 12, "Festival Échecs de Cannes", 0, "Cannes", 0, false },
+                    { 12, 1, new DateTime(2025, 11, 4, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), 2100, 24, 1000, 6, "Open Universitaire de Grenoble", 0, "Grenoble", 0, false },
+                    { 13, 2, new DateTime(2025, 10, 27, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), 2500, 16, 1000, 8, "Coupe des Dames", 0, "Strasbourg", 0, true },
+                    { 14, 4, new DateTime(2025, 10, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), 2500, 20, 1300, 8, "Tournoi de la Montagne Noire", 0, "Carcassonne", 0, false },
+                    { 15, 1, new DateTime(2025, 10, 27, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), 1500, 16, 800, 6, "Championnat Régional Jeunes", 0, "Dijon", 0, false },
+                    { 16, 4, new DateTime(2025, 10, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), 2800, 20, 1500, 8, "Tournoi des Légendes", 0, "Reims", 0, false },
+                    { 17, 3, new DateTime(2025, 11, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), 2500, 32, 1300, 10, "Open de Printemps", 0, "Angers", 0, false },
+                    { 18, 2, new DateTime(2025, 10, 27, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), 2200, 16, 1100, 4, "Blitz Féminin de Montpellier", 0, "Montpellier", 0, true },
+                    { 19, 6, new DateTime(2025, 11, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), 2700, 28, 1500, 12, "Open National d’Été", 0, "La Rochelle", 0, false },
+                    { 20, 1, new DateTime(2025, 10, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), 1600, 20, 800, 6, "Open Juniors du Nord", 0, "Lille", 0, false }
+                });
+
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "Birthdate", "Elo", "Email", "Genre", "Password", "Role", "Username", "isDeleted" },
                 values: new object[,]
                 {
+                    { 1, new DateTime(1990, 11, 30, 0, 0, 0, 0, DateTimeKind.Unspecified), 2859, "magnus@chess.com", 0, "123456", 1, "MagnusCarlsen", false },
+                    { 2, new DateTime(1987, 12, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), 2787, "hikaru@chess.com", 0, "123456", 1, "HikaruNakamura", false },
+                    { 3, new DateTime(1992, 10, 24, 0, 0, 0, 0, DateTimeKind.Unspecified), 2780, "ding@chess.com", 0, "123456", 1, "DingLiren", false },
+                    { 4, new DateTime(1990, 7, 14, 0, 0, 0, 0, DateTimeKind.Unspecified), 2770, "nepo@chess.com", 0, "123456", 1, "IanNepomniachtchi", false },
+                    { 5, new DateTime(1992, 7, 30, 0, 0, 0, 0, DateTimeKind.Unspecified), 2760, "fabiano@chess.com", 0, "123456", 1, "FabianoCaruana", false },
+                    { 6, new DateTime(2003, 6, 18, 0, 0, 0, 0, DateTimeKind.Unspecified), 2750, "firouzja@chess.com", 0, "123456", 1, "AlirezaFirouzja", false },
+                    { 7, new DateTime(1976, 7, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), 2735, "judit@chess.com", 1, "123456", 1, "JuditPolgar", false },
+                    { 8, new DateTime(1994, 2, 27, 0, 0, 0, 0, DateTimeKind.Unspecified), 2658, "hou@chess.com", 1, "123456", 1, "HouYifan", false },
+                    { 9, new DateTime(1943, 3, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), 2785, "fischer@chess.com", 0, "123456", 1, "BobbyFischer", false },
+                    { 10, new DateTime(1963, 4, 13, 0, 0, 0, 0, DateTimeKind.Unspecified), 2812, "kasparov@chess.com", 0, "123456", 1, "GarryKasparov", false },
+                    { 11, new DateTime(1995, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), 2100, "cm42@chess.com", 2, "123456", 1, "ChessMaster42", false },
+                    { 12, new DateTime(1988, 8, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), 1800, "knight@chess.com", 0, "123456", 1, "KnightRider", false },
+                    { 13, new DateTime(1999, 12, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 1950, "queen@chess.com", 1, "123456", 1, "QueenSlayer", false },
+                    { 14, new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1200, "pawn@chess.com", 0, "123456", 1, "PawnStar", false },
+                    { 15, new DateTime(1993, 3, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), 1600, "rook@chess.com", 2, "123456", 1, "RookAndRoll", false },
+                    { 16, new DateTime(1985, 7, 7, 0, 0, 0, 0, DateTimeKind.Unspecified), 2000, "strategist@chess.com", 0, "123456", 1, "TheStrategist", false },
+                    { 17, new DateTime(1997, 6, 21, 0, 0, 0, 0, DateTimeKind.Unspecified), 1750, "blitz@chess.com", 1, "123456", 1, "BlitzQueen", false },
+                    { 18, new DateTime(1980, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), 2200, "checkmate@chess.com", 0, "123456", 1, "CheckmateKing", false },
+                    { 19, new DateTime(1992, 2, 2, 0, 0, 0, 0, DateTimeKind.Unspecified), 2300, "endgame@chess.com", 0, "123456", 1, "EndgameWizard", false },
+                    { 20, new DateTime(1998, 9, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), 1900, "opening@chess.com", 2, "123456", 1, "OpeningGenius", false },
+                    { 21, new DateTime(1990, 11, 30, 0, 0, 0, 0, DateTimeKind.Unspecified), 2500, "nico@chess.com", 0, "123456", 0, "Nico", false },
                     { 22, new DateTime(1991, 4, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), 1620, "alex.martin22@gmail.com", 0, "pwd4821", 1, "AlexMartin", false },
                     { 23, new DateTime(1986, 8, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), 1475, "sam.garcia7@yahoo.com", 2, "pwd3012", 1, "SamGarcia", false },
                     { 24, new DateTime(1999, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), 1540, "taylor.lopez13@outlook.com", 1, "pwd6543", 1, "TaylorLopez", false },
@@ -119,510 +260,44 @@ namespace Checkmate.Migrations
                     { 120, new DateTime(1997, 11, 30, 0, 0, 0, 0, DateTimeKind.Unspecified), 1262, "casey.jackson37@outlook.com", 2, "pwd7065", 1, "CaseyJackson", false },
                     { 121, new DateTime(1990, 8, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), 1994, "owen.brooks12@example.com", 0, "pwd3907", 1, "OwenBrooks", false }
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Encounters_TournamentId",
+                table: "Encounters",
+                column: "TournamentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TournamentUser_RegistrationsId1",
+                table: "TournamentUser",
+                column: "RegistrationsId1");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_Email",
+                table: "Users",
+                column: "Email",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_Username",
+                table: "Users",
+                column: "Username",
+                unique: true);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 22);
+            migrationBuilder.DropTable(
+                name: "Encounters");
 
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 23);
+            migrationBuilder.DropTable(
+                name: "TournamentUser");
 
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 24);
+            migrationBuilder.DropTable(
+                name: "Tournaments");
 
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 25);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 26);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 27);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 28);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 29);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 30);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 31);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 32);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 33);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 34);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 35);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 36);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 37);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 38);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 39);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 40);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 41);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 42);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 43);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 44);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 45);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 46);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 47);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 48);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 49);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 50);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 51);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 52);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 53);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 54);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 55);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 56);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 57);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 58);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 59);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 60);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 61);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 62);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 63);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 64);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 65);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 66);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 67);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 68);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 69);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 70);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 71);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 72);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 73);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 74);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 75);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 76);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 77);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 78);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 79);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 80);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 81);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 82);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 83);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 84);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 85);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 86);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 87);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 88);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 89);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 90);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 91);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 92);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 93);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 94);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 95);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 96);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 97);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 98);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 99);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 100);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 101);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 102);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 103);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 104);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 105);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 106);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 107);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 108);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 109);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 110);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 111);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 112);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 113);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 114);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 115);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 116);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 117);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 118);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 119);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 120);
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 121);
+            migrationBuilder.DropTable(
+                name: "Users");
         }
     }
 }

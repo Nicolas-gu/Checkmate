@@ -1,11 +1,12 @@
 ﻿using Checkmate.Entity;
 using Checkmate.Models;
+using Checkmate.Services;
 using Checkmate.Utils;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Checkmate.Controllers
 {
-    public class UserController(Chesscontext _db) : Controller
+    public class UserController(Chesscontext _db, TournamentService _tournamentService) : Controller
     {
         [HttpGet]
         public IActionResult Index()
@@ -57,7 +58,22 @@ namespace Checkmate.Controllers
         [HttpGet]
         public IActionResult Detail(int id)
         {
+            // recup la liste des tournoi ( waiting ) pour le select de la vue
+            ViewBag.Tournaments = _db.Tournaments
+                .Where(t => t.Status == Tournament.StatusType.Waiting)
+                .ToList();
             return View(_db.Users.Find(id));
+        }
+
+        [HttpPost]
+        public IActionResult RegisterToTournament(int tournamentId, int userId)
+        {
+
+            var result = _tournamentService.RegisterPlayer(tournamentId, userId);
+
+            TempData[result.Succes ? "success" : "error"] = result.Message;
+
+            return RedirectToAction("Detail", "User", new { id = userId });
         }
     }
 }

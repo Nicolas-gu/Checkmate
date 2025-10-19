@@ -1,5 +1,6 @@
 ﻿using Checkmate.Entity;
 using Checkmate.Models;
+using Checkmate.Services;
 using Checkmate.Utils;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -7,7 +8,7 @@ using System.Security.Claims;
 
 namespace Checkmate.Controllers
 {
-    public class TournamentController(Chesscontext _db) : Controller
+    public class TournamentController(Chesscontext _db, TournamentService _tournamentService) : Controller
     {
         [HttpGet]
         public IActionResult Index()
@@ -105,6 +106,8 @@ namespace Checkmate.Controllers
 
             var tournament = _db.Tournaments
                 .Include(t => t.Registrations)
+                .Include(t => t.Encounters)
+                .ThenInclude(e => e.WhitePlayer)
                 .FirstOrDefault(t => t.Id == id);
 
             if (tournament == null) return NotFound();
@@ -142,96 +145,21 @@ namespace Checkmate.Controllers
         [HttpPost]
         public IActionResult Register(int tournamentId)
         {
-            var tournament = _db.Tournaments.Include(t => t.Registrations)
-                .FirstOrDefault(t => t.Id == tournamentId);
-            if (tournament == null)
-            {
-                return NotFound();
-            }
+            // recup id player connecté par Claim
             var userClaim = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (userClaim == null)
             {
-                TempData["error"] = "Vous devez être connecté pour vous inscrire.";
+                TempData["error"] = "If faut être connecté pour s'inscrire.";
                 return RedirectToAction("Login");
             }
             int userId = int.Parse(userClaim);
-            var user = _db.Users.Find(userId);
-            if (user == null)
-            {
-                TempData["error"] = "Utilisateur introuvable";
-                return RedirectToAction("Login");
-            }
-            if (tournament.Status != Tournament.StatusType.Waiting)
-            {
-                TempData["error"] = "Les inscriptions pour ce tournoi sont cloturées";
-                return RedirectToAction("Detail", new { id = tournamentId });
-            }
-            if (tournament.WomenOnly)
-            {
-                if (user.Genre == Entity.User.GenreType.Male)
-                {
-                    TempData["error"] = "Tournoi interdit aux hommes";
-                    return RedirectToAction("Detail", new { id = tournamentId });
-                }
-            }
-            int age = (int)(tournament.CloseDate.Year - user.Birthdate.Year);
-            if (age < 18)
-            {
-                if (!tournament.Category.HasFlag(Tournament.CategoryType.Junior))
-                {
-                    TempData["error"] = "Vous n'avez pas l'age requis pour participer à ce tournoi";
-                    return RedirectToAction("Detail", new { id = tournamentId });
-                }
-            }
-            if (age >= 18 && age < 60)
-            {
-                if (!tournament.Category.HasFlag(Tournament.CategoryType.Senior))
-                {
-                    TempData["error"] = "Vous n'avez pas l'age requis pour participer à ce tournoi";
-                    return RedirectToAction("Detail", new { id = tournamentId });
-                }
-            }
-            if ( age >= 60)
-            {
-                if (!tournament.Category.HasFlag(Tournament.CategoryType.Veteran))
-                {
-                    TempData["error"] = "Vous n'avez pas l'age requis pour participer à ce tournoi";
-                    return RedirectToAction("Detail", new { id = tournamentId });
-                }
-            }
-            
-            if(user.Elo <= tournament.MinElo || user.Elo >= tournament.MaxElo)
-            {
-                TempData["error"] = "Votre Elo n'entre pas dans les conditions pour participer à ce tournoi";
-                return RedirectToAction("Detail", new { id = tournamentId });
-            }
-            if(tournament.CloseDate <= DateTime.UtcNow)
-            {
-                TempData["error"] = "La date d'inscription est dépassée";
-                return RedirectToAction("Detail", new { id = tournamentId });
-            }
-            if(tournament.NbPlayer >= tournament.MaxPlayer)
-            {
-                TempData["error"] = "Nombres de joueurs maximum atteint";
-                return RedirectToAction("Detail", new { id = tournamentId });
-            }
-            
-            if (tournament.Registrations == null)
-            {
-                tournament.Registrations = new List<User>();
-            }
-            if (!tournament.Registrations.Any(u => u.Id == user.Id))
-            {
-                tournament.Registrations.Add(user);
-                tournament.NbPlayer = (tournament.NbPlayer ?? 0) + 1;
-                _db.SaveChanges();
-                TempData["success"] = "Inscription réussie !";
-            }
-            else
-            {
-                TempData["error"] = "Vous êtes déjà inscrit à ce tournoi";
-            }
-            return RedirectToAction("Index");
+
+            // appel methode du service avec id joueur recup
+            var result = _tournamentService.RegisterPlayer(tournamentId, userId);
+
+            TempData[result.Succes ? "success" : "error"] = result.Message;
+
+            return RedirectToAction("Detail", new { id = tournamentId });
         }
 
         [HttpPost]
@@ -267,9 +195,32 @@ namespace Checkmate.Controllers
                 tournament.NbPlayer = (tournament.NbPlayer ?? 0) - 1;
                 _db.SaveChanges();
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("Detail", new { id = tournamentId });
         }
-        [HttpGet]
+
+        // MODE DEBUG A SUPPRIMER
+        [HttpPost]
+        public IActionResult ChangeStatus(int id)
+        {
+            Tournament? tournament = _db.Tournaments.Find(id);
+            if (tournament == null)
+            {
+                return NotFound();
+            }
+            
+            _tournamentService.GenerateEncounter(id);
+
+            tournament.Status = Tournament.StatusType.Waiting;
+            tournament.CurrentRound = 0;
+            tournament.LastUpdateDate = DateTime.Now;
+            tournament.Registrations.Clear();
+
+            _db.SaveChanges();
+            TempData["success"] = "Le tournoi a été rétrograder a WAITING avec succès !";
+            return RedirectToAction("Detail", new { id });
+        }
+
+        [HttpPost]
         public IActionResult StartTournament(int id)
         {
             Tournament? tournament = _db.Tournaments.Find(id);
@@ -287,12 +238,21 @@ namespace Checkmate.Controllers
             //    TempData["error"] = "La date de cloture des inscriptions n'est pas encore passée";
             //    return RedirectToAction("Detail", new { id = id });
             //}
+            //if (tournament.Status != Tournament.StatusType.Waiting)
+            //{
+            //    TempData["error"] = "Le tournoi est déjà en cours ou terminé.";
+            //    return RedirectToAction("Detail", new { id });
+            //}
+
+            _tournamentService.GenerateEncounter(id);
+
             tournament.Status = Tournament.StatusType.InProgress;
             tournament.CurrentRound = 1;
             tournament.LastUpdateDate = DateTime.Now;
 
             _db.SaveChanges();
-            return RedirectToAction("Index");
+            TempData["success"] = "Le tournoi a été lancé avec succès !";
+            return RedirectToAction("Detail", new { id });
         }
 
     }

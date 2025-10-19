@@ -1,5 +1,6 @@
 using Checkmate;
 using Checkmate.Entity;
+using Checkmate.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -14,11 +15,7 @@ builder.Services.AddDbContext<Chesscontext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Default"));
 });
 
-//builder.Services.AddDefaultIdentity<User>
-//    .AddRoles<IdentityRole>();
-
-
-//builder.Services.AddSession();      // TEST pour les session utilisateur
+builder.Services.AddScoped<TournamentService>();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(o => {

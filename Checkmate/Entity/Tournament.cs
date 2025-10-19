@@ -21,6 +21,7 @@ namespace Checkmate.Entity
         public DateTime LastUpdateDate { get; set; }
         public DateTime CloseDate { get; set; }
         public List<User>? Registrations { get; set; } = [];
+        public List<Encounter> Encounters { get; set; } = [];
 
         [Flags]
         public enum CategoryType

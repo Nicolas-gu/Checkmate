@@ -8,14 +8,25 @@ namespace Checkmate
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Tournament> Tournaments { get; set; }
+        public DbSet<Encounter> Encounters { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {           
-#if DEBUG
+        {         
+            modelBuilder.Entity<Encounter>()
+                .HasOne(e => e.WhitePlayer)
+                .WithMany()
+                .HasForeignKey(e => e.WhitePlayerId)
+                .OnDelete(DeleteBehavior.Restrict);
 
-            
+            modelBuilder.Entity<Encounter>()
+                .HasOne(e => e.BlackPlayer)
+                .WithMany()
+                .HasForeignKey(e => e.BlackPlayerId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+#if DEBUG
             modelBuilder.Entity<User>().HasData([
-                new User { Id = 21, Username = "Nico", Email = "nico@chess.com", Password = "123456", Birthdate = new DateTime(1990, 11, 30), Genre = User.GenreType.Male, Elo = 2859, Role = User.RoleType.Admin },
+                new User { Id = 21, Username = "Nico", Email = "nico@chess.com", Password = "123456", Birthdate = new DateTime(1990, 11, 30), Genre = User.GenreType.Male, Elo = 2500, Role = User.RoleType.Admin },
                 new User { Id = 1, Username = "MagnusCarlsen", Email = "magnus@chess.com", Password = "123456", Birthdate = new DateTime(1990, 11, 30), Genre = User.GenreType.Male, Elo = 2859, Role = User.RoleType.Player },
                 new User { Id = 2, Username = "HikaruNakamura", Email = "hikaru@chess.com", Password = "123456", Birthdate = new DateTime(1987, 12, 9), Genre = User.GenreType.Male, Elo = 2787, Role = User.RoleType.Player },
                 new User { Id = 3, Username = "DingLiren", Email = "ding@chess.com", Password = "123456", Birthdate = new DateTime(1992, 10, 24), Genre = User.GenreType.Male, Elo = 2780, Role = User.RoleType.Player },

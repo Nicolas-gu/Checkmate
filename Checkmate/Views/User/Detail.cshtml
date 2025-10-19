@@ -77,6 +77,36 @@
                 <span>Aucun tournoi</span>
             }
         </table>
+        <form asp-action="RegisterToTournament" asp-controller="User">
+            <input type="hidden" name="userId" value="@Model.Id"/>
+            <div class="form-group">
+                <select name="tournamentId" class="form-control">
+                    <option value="">Sélectionnez un tournoi</option>
+                    @foreach (var t in ViewBag.Tournaments)
+                        {
+                            <option value="@t.Id">@t.Name</option>
+                        }
+            </select>
+            </div>
+            <br />
+            <button type="submit" class="btn btn-sm">
+                <i class="fa-regular fa-chess-queen"></i>
+                Inscrire
+            </button>
+        </form>
+        @if (TempData["error"] != null)
+        {
+            <div class="alert alert-danger">
+                @TempData["error"]
+            </div>
+        }
+
+        @if (TempData["success"] != null)
+        {
+            <div class="alert alert-success">
+                @TempData["success"]
+            </div>
+        }
     </div>
 </div>
 

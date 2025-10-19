@@ -22,6 +22,36 @@ namespace Checkmate.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("Checkmate.Entity.Encounter", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("BlackPlayerId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Results")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Round")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TournamentId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("WhitePlayerId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TournamentId");
+
+                    b.ToTable("Encounters");
+                });
+
             modelBuilder.Entity("Checkmate.Entity.Tournament", b =>
                 {
                     b.Property<int>("Id")
@@ -490,7 +520,7 @@ namespace Checkmate.Migrations
                         {
                             Id = 21,
                             Birthdate = new DateTime(1990, 11, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Elo = 2859,
+                            Elo = 2500,
                             Email = "nico@chess.com",
                             Genre = 0,
                             Password = "123456",
@@ -1955,6 +1985,15 @@ namespace Checkmate.Migrations
                     b.ToTable("TournamentUser");
                 });
 
+            modelBuilder.Entity("Checkmate.Entity.Encounter", b =>
+                {
+                    b.HasOne("Checkmate.Entity.Tournament", null)
+                        .WithMany("Encounters")
+                        .HasForeignKey("TournamentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("TournamentUser", b =>
                 {
                     b.HasOne("Checkmate.Entity.Tournament", null)
@@ -1968,6 +2007,11 @@ namespace Checkmate.Migrations
                         .HasForeignKey("RegistrationsId1")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Checkmate.Entity.Tournament", b =>
+                {
+                    b.Navigation("Encounters");
                 });
 #pragma warning restore 612, 618
         }
