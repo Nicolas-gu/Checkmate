@@ -214,6 +214,7 @@ namespace Checkmate.Controllers
             tournament.CurrentRound = 0;
             tournament.LastUpdateDate = DateTime.Now;
             tournament.Registrations.Clear();
+            tournament.NbPlayer = 0;
 
             _db.SaveChanges();
             TempData["success"] = "Le tournoi a été rétrograder a WAITING avec succès !";
