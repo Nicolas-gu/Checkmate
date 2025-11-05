@@ -58,7 +58,7 @@
                     Joueurs :
                 </dt>
                 <dd class = "col-sm-8">
-                    @Html.DisplayFor(model => model.NbPlayer) (@Model.MinPlayer) / @Model.MaxPlayer
+                    @Html.DisplayFor(model => model.Registrations.Count) (@Model.MinPlayer) / @Model.MaxPlayer
                 </dd>
                 <dt class = "col-sm-4">
                     Catégories :
@@ -138,7 +138,28 @@
             }
             else if (Model.Status == Tournament.StatusType.InProgress)
             {
-                <p>Detail du tournois a venir</p>
+                <table class="table table-bordered table-sm">
+                    <thead>
+                        <tr>
+                            <th>Ronde</th>
+                            <th colspan="10">Matchs</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var round in Model.Encounters
+                                            .GroupBy(e => e.Round)
+                                            .OrderBy(g => g.Key))
+                        {
+                            <tr>
+                                <td><strong>Ronde @round.Key</strong></td>
+                                @foreach (var match in round)
+                                {
+                                    <td>@match.WhitePlayerId - @match.BlackPlayerId</td>
+                                }
+                            </tr>
+                        }
+                    </tbody>
+                </table>
             }
             else
             {

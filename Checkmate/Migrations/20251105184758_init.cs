@@ -80,6 +80,18 @@ namespace Checkmate.Migrations
                         principalTable: "Tournaments",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Encounters_Users_BlackPlayerId",
+                        column: x => x.BlackPlayerId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Encounters_Users_WhitePlayerId",
+                        column: x => x.WhitePlayerId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -262,9 +274,19 @@ namespace Checkmate.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Encounters_BlackPlayerId",
+                table: "Encounters",
+                column: "BlackPlayerId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Encounters_TournamentId",
                 table: "Encounters",
                 column: "TournamentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Encounters_WhitePlayerId",
+                table: "Encounters",
+                column: "WhitePlayerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TournamentUser_RegistrationsId1",

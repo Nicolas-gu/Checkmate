@@ -10,7 +10,7 @@ namespace Checkmate.Entity
         public string? Place { get; set; }
         public int MaxPlayer { get; set; }
         public int MinPlayer { get; set; }
-        public int? NbPlayer { get; set; } = 0;
+        //public int? NbPlayer { get; set; } = 0;
         public int? MaxElo { get; set; }
         public int? MinElo { get; set; }
         public CategoryType Category { get; set; }

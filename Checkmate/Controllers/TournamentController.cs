@@ -192,7 +192,7 @@ namespace Checkmate.Controllers
                     return RedirectToAction("Detail", new { id = tournamentId });
                 }
                 tournament.Registrations.Remove(user);
-                tournament.NbPlayer = (tournament.NbPlayer ?? 0) - 1;
+                //tournament.NbPlayer = (tournament.NbPlayer ?? 0) - 1;
                 _db.SaveChanges();
             }
             return RedirectToAction("Detail", new { id = tournamentId });
@@ -202,7 +202,9 @@ namespace Checkmate.Controllers
         [HttpPost]
         public IActionResult ChangeStatus(int id)
         {
-            Tournament? tournament = _db.Tournaments.Find(id);
+            Tournament? tournament = _db.Tournaments
+                .Include(t => t.Encounters)
+                .FirstOrDefault(t => t.Id == id);
             if (tournament == null)
             {
                 return NotFound();
@@ -214,7 +216,8 @@ namespace Checkmate.Controllers
             tournament.CurrentRound = 0;
             tournament.LastUpdateDate = DateTime.Now;
             tournament.Registrations.Clear();
-            tournament.NbPlayer = 0;
+            tournament.Encounters.Clear();
+            //tournament.NbPlayer = 0;
 
             _db.SaveChanges();
             TempData["success"] = "Le tournoi a été rétrograder a WAITING avec succès !";

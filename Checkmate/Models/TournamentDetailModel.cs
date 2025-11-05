@@ -8,7 +8,7 @@ namespace Checkmate.Models
         public int Id { get; set; } = tournament.Id;
         public string Name { get; set; } = tournament.Name;
         public string? Place { get; set; } = tournament.Place ?? "Pas de lieu indiqué";
-        public int? NbPlayer { get; set; } = tournament.NbPlayer;
+        public int? NbPlayer { get; set; } = tournament.Registrations.Count;
         public List<User>? Registrations { get; set; } = tournament.Registrations.ToList();
         public List<Tournament.CategoryType> Categories { get; set; } = tournament.Category.GetFlags();
         public int? MaxElo { get; set; } = tournament.MaxElo;

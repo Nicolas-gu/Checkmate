@@ -47,7 +47,11 @@ namespace Checkmate.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("BlackPlayerId");
+
                     b.HasIndex("TournamentId");
+
+                    b.HasIndex("WhitePlayerId");
 
                     b.ToTable("Encounters");
                 });
@@ -1987,11 +1991,27 @@ namespace Checkmate.Migrations
 
             modelBuilder.Entity("Checkmate.Entity.Encounter", b =>
                 {
+                    b.HasOne("Checkmate.Entity.User", "BlackPlayer")
+                        .WithMany()
+                        .HasForeignKey("BlackPlayerId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("Checkmate.Entity.Tournament", null)
                         .WithMany("Encounters")
                         .HasForeignKey("TournamentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("Checkmate.Entity.User", "WhitePlayer")
+                        .WithMany()
+                        .HasForeignKey("WhitePlayerId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("BlackPlayer");
+
+                    b.Navigation("WhitePlayer");
                 });
 
             modelBuilder.Entity("TournamentUser", b =>

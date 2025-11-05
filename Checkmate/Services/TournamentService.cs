@@ -134,7 +134,7 @@ namespace Checkmate.Services
             {
                 return (false, "La date d'inscription est dépassée");
             }
-            if (tournament.NbPlayer >= tournament.MaxPlayer)
+            if (tournament.Registrations.Count >= tournament.MaxPlayer)
             {
                 return (false, "Nombres de joueurs maximum atteint");
             }
@@ -145,7 +145,7 @@ namespace Checkmate.Services
             if (!tournament.Registrations.Any(u => u.Id == user.Id))
             {
                 tournament.Registrations.Add(user);
-                tournament.NbPlayer = (tournament.NbPlayer ?? 0) + 1;
+                //tournament.NbPlayer = (tournament.NbPlayer ?? 0) + 1;
                 _db.SaveChanges();
                 return (true, "Inscription réussie !");
             }

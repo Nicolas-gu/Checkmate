@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Checkmate.Migrations
 {
     [DbContext(typeof(Chesscontext))]
-    [Migration("20251019112046_init")]
+    [Migration("20251105184758_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -50,7 +50,11 @@ namespace Checkmate.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("BlackPlayerId");
+
                     b.HasIndex("TournamentId");
+
+                    b.HasIndex("WhitePlayerId");
 
                     b.ToTable("Encounters");
                 });
@@ -1990,11 +1994,27 @@ namespace Checkmate.Migrations
 
             modelBuilder.Entity("Checkmate.Entity.Encounter", b =>
                 {
+                    b.HasOne("Checkmate.Entity.User", "BlackPlayer")
+                        .WithMany()
+                        .HasForeignKey("BlackPlayerId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("Checkmate.Entity.Tournament", null)
                         .WithMany("Encounters")
                         .HasForeignKey("TournamentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("Checkmate.Entity.User", "WhitePlayer")
+                        .WithMany()
+                        .HasForeignKey("WhitePlayerId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("BlackPlayer");
+
+                    b.Navigation("WhitePlayer");
                 });
 
             modelBuilder.Entity("TournamentUser", b =>
